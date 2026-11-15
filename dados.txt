@@ -1,0 +1,186 @@
+# 1. Escolhendo Pasta
+getwd()
+setwd("C:/Users/Venosa/Documents/Especialização_em_Análise_de_Dados_de_Saúde")
+
+# 2. MORTALIDADE por CID-10 2016-2026 em Caraguatatuba
+mortalidade_CID10_2016_2026 <- read.csv2(
+  "mort_CID10_carag_2016_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 3. ACIDENTES DE PEÇONHENTOS 2007-2026 em Caraguatatuba
+acidentes_peçonhentos_2007_2026 <- read.csv2(
+  "peçonhento_carag_2007_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 4. NOTIFICAÇÕES DE ANTIRRÁBICA 2007-2026 em Caraguatatuba
+mordeduras_2007_2026 <- read.csv2(
+  "mordeduras_carag_2007_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 5. CASOS DE DENGUE 2007-2013 e 2016-2026 em Caraguatatuba
+dengue_2007_2013 <- read.csv2(
+  "casos_dengue_carag_2007_2013.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+dengue_2014_2026 <- read.csv2(
+  "casos_dengue_carag_2014_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 6. CASOS ESQUISTOSSOMOSE 2007-2025 em Caraguatatuba
+esquistossomose_2007_2025 <- read.csv2(
+  "casos_esquissostomose_carag_2007_2025.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 7. CASOS DE FEBRE AMARELA HUMANA e EPIZOOTIAS 1994-2026 em Caraguatatuba
+# Carregar pacotes
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+# Importar o banco bruto
+fa <- read_delim(
+  "fa_casoshumanos_1994_2026.csv",
+  delim = ";",
+  locale = locale(encoding = "Latin1"),
+  show_col_types = FALSE
+)
+
+# Conferir o banco
+View(fa)
+
+# Selecionar os registros cujo município provável
+#e infecção (MUN_LPI) é Caraguatatuba
+
+fa_caragua <- fa %>%
+  filter(
+    str_to_upper(str_trim(MUN_LPI)) == "CARAGUATATUBA"
+  )
+
+# Contar o número de casos por ano
+
+fa_caragua_ano <- fa_caragua %>%
+  count(ANO_IS, name = "CASOS_HUMANOS")
+
+# Incluir também os anos em que houve ZERO casos
+
+fa_caragua_ano <- fa_caragua_ano %>%
+  complete(
+    ANO_IS = 1994:2026,
+    fill = list(CASOS_HUMANOS = 0)
+  )
+
+# Adicionar o nome do município
+
+fa_caragua_ano <- fa_caragua_ano %>%
+  mutate(
+    MUNICIPIO = "CARAGUATATUBA"
+  ) %>%
+  select(
+    MUNICIPIO,
+    ANO = ANO_IS,
+    CASOS_HUMANOS
+  ) %>%
+  arrange(ANO)
+
+# Importar banco bruto
+epiz <- read_delim(
+  "fa_epizpnh_1994-2026.csv",
+  delim = ";",
+  locale = locale(encoding = "Latin1"),
+  show_col_types = FALSE
+)
+
+# Conferir banco
+View(epiz)
+
+# Filtrar ocorrências em Caraguatatuba
+epiz_caragua <- epiz %>%
+  filter(
+    str_to_upper(str_trim(MUN_OCOR)) == "CARAGUATATUBA"
+  )
+
+# Contar epizootias por ano
+epiz_caragua_ano <- epiz_caragua %>%
+  count(ANO_OCOR, name = "EPIZOOTIAS")
+
+# Adicionar anos com zero ocorrências
+epiz_caragua_ano <- epiz_caragua_ano %>%
+  complete(
+    ANO_OCOR = 1994:2026,
+    fill = list(EPIZOOTIAS = 0)
+  )
+
+# Montar tabela final
+epiz_caragua_ano <- epiz_caragua_ano %>%
+  mutate(
+    MUNICIPIO = "CARAGUATATUBA"
+  ) %>%
+  select(
+    MUNICIPIO,
+    ANO = ANO_OCOR,
+    EPIZOOTIAS
+  ) %>%
+  arrange(ANO)
+
+# 8. Chikungunya 2016-2026 em Caraguatatuba
+chikungunya_carag_2016_2026 <- read.csv2(
+  "chikungunya_carag_2016_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 9. Febre Maculosa 2007-2025 em Caraguatatuba
+febremaculosa_carag_2007_2025 <- read.csv2(
+  "febremaculosa_carag_2007_2025.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 10. Leishmaniose Tegumentar Americana 2007-2026 em Caraguatatuba
+LTA_carag_2007_2026 <- read.csv2(
+  "LTA_carag_2007_2023.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+  
+)
+
+# 11. Leptospirose 2007-2026 em Caraguatatuba
+lepto_carag_2007_2026 <- read.csv2(
+  "lepto_carag_2007_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 12. Malária 2007-2026 em Caraguatatuba
+malaria_carag_2007_2026 <- read.csv2(
+  "malaria_carag_2007_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 13. Toxoplasmose Congênita 2007-2026 em Caraguatatuba
+toxo_cong_carag_2007_2026 <- read.csv2(
+  "toxo_congenita_carag_2007_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)
+
+# 14. Zika 2015-2026 em Caraguatatuba
+zika_carag_2015_2026 <- read.csv2(
+  "zika_carag_2015_2026.csv",
+  fileEncoding = "latin1",
+  check.names = FALSE
+)

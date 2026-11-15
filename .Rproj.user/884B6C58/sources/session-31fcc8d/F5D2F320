@@ -1,0 +1,26 @@
+{
+    "id": "F5D2F320",
+    "path": "~/Especialização_em_Análise_de_Dados_de_Saúde/dados.R",
+    "project_path": "dados.R",
+    "type": "r_source",
+    "hash": "4146721651",
+    "contents": "",
+    "dirty": false,
+    "created": 1790568850193.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "185,1",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1790565598,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1790565598,
+    "read_only": false,
+    "read_only_alternatives": []
+}

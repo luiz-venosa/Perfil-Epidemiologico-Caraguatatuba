@@ -1,0 +1,261 @@
+---
+title: "Perfil Epidemiológico de Caraguatatuba"
+subtitle: "Mortalidade e agravos relacionados à Vigilância em Saúde"
+author: "Luiz Felipe N. M. Venosa"
+date: today
+lang: pt-BR
+
+format:
+  pdf:
+    toc: true
+    toc-title: "Índice"
+    number-sections: true
+    keep-tex: false
+
+header-includes:
+  - \usepackage{pdflscape}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{graphicx}
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: configuracao
+#| include: false
+
+source("dados.R", encoding = "UTF-8")
+
+library(knitr)
+```
+
+```{=latex}
+\clearpage
+```
+
+# Introdução
+
+Este relatório apresenta dados epidemiológicos do município de Caraguatatuba, com ênfase em mortalidade e doenças e agravos relacionados às atividades de Vigilância em Saúde e Vigilância de Zoonoses.
+
+Os dados foram obtidos de sistemas oficiais de informação em saúde e organizados para análise temporal no município.
+
+```{=latex}
+\clearpage
+```
+
+# Mortalidade por CID-10
+
+```{=latex}
+\begin{landscape}
+```
+
+```{r}
+#| label: mortalidade
+
+knitr::kable(
+  mortalidade_CID10_2016_2026,
+  caption = "Mortalidade por capítulos da CID-10 em Caraguatatuba, 1996–2026",
+  booktabs = TRUE,
+  longtable = TRUE
+)
+```
+
+```{=latex}
+\end{landscape}
+```
+
+```{=latex}
+\clearpage
+```
+
+# Acidentes por animais peçonhentos
+
+```{r}
+#| label: peconhentos
+
+knitr::kable(
+  acidentes_peçonhentos_2007_2026,
+  caption = "Acidentes por animais peçonhentos em Caraguatatuba, 2007–2026",
+  booktabs = TRUE
+)
+```
+
+# Atendimento antirrábico
+
+```{r}
+#| label: antirrabico
+
+knitr::kable(
+  mordeduras_2007_2026,
+  caption = "Atendimentos antirrábicos notificados em Caraguatatuba, 2007–2026",
+  booktabs = TRUE
+)
+```
+
+# Dengue
+
+## 2007–2013
+
+```{r}
+#| label: dengue-2007-2013
+
+knitr::kable(
+  dengue_2007_2013,
+  caption = "Casos de dengue em Caraguatatuba, 2007–2013",
+  booktabs = TRUE
+)
+```
+
+## 2014–2026
+
+```{r}
+#| label: dengue-2014-2026
+
+knitr::kable(
+  dengue_2014_2026,
+  caption = "Casos de dengue em Caraguatatuba, 2014–2026",
+  booktabs = TRUE
+)
+```
+
+# Esquistossomose
+
+```{r}
+#| label: esquistossomose
+
+knitr::kable(
+  esquistossomose_2007_2025,
+  caption = "Casos de esquistossomose em Caraguatatuba, 2007–2025",
+  booktabs = TRUE
+)
+```
+
+# Febre amarela
+
+## Casos humanos
+
+```{r}
+#| label: febre-amarela-humana
+
+fa_humana_relatorio <- fa_caragua_ano[
+  fa_caragua_ano$CASOS_HUMANOS > 0,
+]
+
+knitr::kable(
+  fa_humana_relatorio,
+  caption = "Casos humanos de febre amarela segundo município provável de infecção — Caraguatatuba, 1994–2026",
+  booktabs = TRUE
+)
+```
+
+## Epizootias em primatas não humanos
+
+```{r}
+#| label: epizootias
+
+epiz_relatorio <- epiz_caragua_ano[
+  epiz_caragua_ano$EPIZOOTIAS > 0,
+]
+
+knitr::kable(
+  epiz_relatorio,
+  caption = "Epizootias em primatas não humanos notificadas em Caraguatatuba, 1994–2026",
+  booktabs = TRUE
+)
+```
+
+# Chikungunya
+
+```{r}
+#| label: chikungunya
+
+knitr::kable(
+  chikungunya_carag_2016_2026,
+  caption = "Casos de chikungunya em Caraguatatuba, 2016–2026",
+  booktabs = TRUE
+)
+```
+
+# Febre maculosa
+
+```{r}
+#| label: febre-maculosa
+
+knitr::kable(
+  febremaculosa_carag_2007_2025,
+  caption = "Casos de febre maculosa em Caraguatatuba, 2007–2025",
+  booktabs = TRUE
+)
+```
+
+# Leishmaniose Tegumentar Americana
+
+```{r}
+#| label: lta
+
+knitr::kable(
+  LTA_carag_2007_2026,
+  caption = "Casos de Leishmaniose Tegumentar Americana em Caraguatatuba",
+  booktabs = TRUE
+)
+```
+
+# Leptospirose
+
+```{r}
+#| label: leptospirose
+
+knitr::kable(
+  lepto_carag_2007_2026,
+  caption = "Casos de leptospirose em Caraguatatuba, 2007–2026",
+  booktabs = TRUE
+)
+```
+
+# Malária
+
+```{r}
+#| label: malaria
+
+knitr::kable(
+  malaria_carag_2007_2026,
+  caption = "Casos de malária em Caraguatatuba, 2007–2026",
+  booktabs = TRUE
+)
+```
+
+# Toxoplasmose congênita
+
+```{r}
+#| label: toxoplasmose
+
+knitr::kable(
+  toxo_cong_carag_2007_2026,
+  caption = "Casos de toxoplasmose congênita em Caraguatatuba, 2007–2026",
+  booktabs = TRUE
+)
+```
+
+# Zika
+
+```{r}
+#| label: zika
+
+knitr::kable(
+  zika_carag_2015_2026,
+  caption = "Casos de Zika em Caraguatatuba, 2015–2026",
+  booktabs = TRUE
+)
+```
+
+```{=latex}
+\clearpage
+```
+
+# Síntese epidemiológica
+
+Esta seção é destinada à interpretação conjunta dos indicadores epidemiológicos e à identificação dos principais problemas de saúde relacionados à atuação da Vigilância em Saúde e da Vigilância de Zoonoses no município de Caraguatatuba.
